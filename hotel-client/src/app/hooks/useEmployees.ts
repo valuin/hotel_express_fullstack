@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Employee } from '../lib/definitions';
+import { Employees } from '../lib/definitions';
 
-export function useEmployees(): Employee[] {
-  const [employees, setEmployees] = useState<Employee[]>([]);
+export function useEmployees(): Employees[] {
+  const [employees, setEmployees] = useState<Employees[]>([]);
 
   useEffect(() => {
     async function fetchEmployees() {
