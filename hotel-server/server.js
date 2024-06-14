@@ -3,7 +3,7 @@ const mysql = require("mysql2/promise");
 const cors = require("cors");
 require("dotenv").config();
 
-const PORT = 3000;
+const PORT = 3001;
 
 // Create a MySQL connection pool
 
@@ -36,7 +36,7 @@ app.get("/employees", async (req, res) => {
 
 app.get("/employees/:id", async (req, res) => {
   try {
-    const employee = await pool.query("SELECT * FROM employees WHERE id = ?", [
+    const [employee] = await pool.query("SELECT * FROM employees WHERE id = ?", [
       req.params.id,
     ]);
     res.json(employee[0]);
@@ -47,20 +47,20 @@ app.get("/employees/:id", async (req, res) => {
 });
 
 app.post("/employees", async (req, res) => {
-  const { name, email, phone_number, address, job_title, image_url } = req.body;
+  const { name, email, phone, address, position, image_url } = req.body;
 
   try {
     const [result] = await pool.query(
-      "INSERT INTO employees (name, email, phone_number, address, job_title, image_url) VALUES (?, ?, ?, ?, ?, ?)",
-      [name, email, phone_number, address, job_title, image_url]
+      "INSERT INTO employees (name, email, phone, address, position, image_url) VALUES (?, ?, ?, ?, ?, ?)",
+      [name, email, phone, address, position, image_url]
     );
     res.json({
       id: result.insertId,
       name,
       email,
-      phone_number,
+      phone,
       address,
-      job_title,
+      position,
       image_url,
     });
   } catch (error) {
@@ -70,21 +70,21 @@ app.post("/employees", async (req, res) => {
 });
 
 app.put("/employees/:id", async (req, res) => {
-  const { name, email, phone_number, address, job_title, image_url } = req.body;
+  const { name, email, phone, address, position, image_url } = req.body;
   const { id } = req.params;
 
   try {
     const [result] = await pool.query(
-      "UPDATE employees SET name = ?, email = ?, phone_number = ?, address = ?, job_title = ?, image_url = ? WHERE id = ?",
-      [name, email, phone_number, address, job_title, image_url, id]
+      "UPDATE employees SET name = ?, email = ?, phone = ?, address = ?, position = ?, image_url = ? WHERE id = ?",
+      [name, email, phone, address, position, image_url, id]
     );
     res.json({
       id: parseInt(id),
       name,
       email,
-      phone_number,
+      phone,
       address,
-      job_title,
+      position,
       image_url,
     });
   } catch (error) {
@@ -127,7 +127,7 @@ app.get("/rooms", async (req, res) => {
 
 app.get("/rooms/:id", async (req, res) => {
   try {
-    const room = await pool.query("SELECT * FROM rooms WHERE room_id = ?", [
+    const [room] = await pool.query("SELECT * FROM rooms WHERE id = ?", [
       req.params.id,
     ]);
     res.json(room[0]);
@@ -216,7 +216,7 @@ app.get("/customers", async (req, res) => {
 
 app.get("/customers/:id", async (req, res) => {
   try {
-    const customer = await pool.query("SELECT * FROM customers WHERE id = ?", [
+    const [customer] = await pool.query("SELECT * FROM customers WHERE id = ?", [
       req.params.id,
     ]);
     res.json(customer[0]);
@@ -227,18 +227,18 @@ app.get("/customers/:id", async (req, res) => {
 });
 
 app.post("/customers", async (req, res) => {
-  const { name, email, phone_number, address } = req.body;
+  const { name, email, phone, address } = req.body;
 
   try {
     const [result] = await pool.query(
-      "INSERT INTO customers (name, email, phone_number, address) VALUES (?, ?, ?, ?)",
-      [name, email, phone_number, address]
+      "INSERT INTO customers (name, email, phone, address) VALUES (?, ?, ?, ?)",
+      [name, email, phone, address]
     );
     res.json({
       id: result.insertId,
       name,
       email,
-      phone_number,
+      phone,
       address,
     });
   } catch (error) {
@@ -248,19 +248,19 @@ app.post("/customers", async (req, res) => {
 });
 
 app.put("/customers/:id", async (req, res) => {
-  const { name, email, phone_number, address } = req.body;
+  const { name, email, phone, address } = req.body;
   const { id } = req.params;
 
   try {
     const [result] = await pool.query(
-      "UPDATE customers SET name = ?, email = ?, phone_number = ?, address = ? WHERE id = ?",
-      [name, email, phone_number, address, id]
+      "UPDATE customers SET name = ?, email = ?, phone = ?, address = ? WHERE id = ?",
+      [name, email, phone, address, id]
     );
     res.json({
       id: parseInt(id),
       name,
       email,
-      phone_number,
+      phone,
       address,
     });
   } catch (error) {
@@ -303,7 +303,7 @@ app.get("/payments", async (req, res) => {
 
 app.get("/payments/:id", async (req, res) => {
   try {
-    const payment = await pool.query("SELECT * FROM payments WHERE id = ?", [
+    const [payment] = await pool.query("SELECT * FROM payments WHERE id = ?", [
       req.params.id,
     ]);
     res.json(payment[0]);
@@ -375,7 +375,7 @@ app.delete("/payments/:id", async (req, res) => {
 
 app.get("/reservations", async (req, res) => {
   try {
-    const [rows] = await pool.query("SELECT * FROM reservations ORDER BY check_in DESC");
+    const [rows] = await pool.query("SELECT * FROM reservations");
     res.json(rows);
   } catch (error) {
     console.error("Error getting reservations:", error);
@@ -385,14 +385,24 @@ app.get("/reservations", async (req, res) => {
 
 app.get("/reservations/:id", async (req, res) => {
   try {
-    const reservation = await pool.query(
-      "SELECT * FROM reservations WHERE reservation_id = ?",
+    const [reservation] = await pool.query(
+      "SELECT * FROM reservations WHERE id = ?",
       [req.params.id]
     );
     res.json(reservation[0]);
   } catch (error) {
     console.error("Error getting reservation:", error);
     res.status(500).json({ error: "Error getting reservation" });
+  }
+});
+
+app.get("/recent-reservations", async (req, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM reservations ORDER BY check_in DESC LIMIT 5");
+    res.json(rows);
+  } catch (error) {
+    console.error("Error getting reservations:", error);
+    res.status(500).json({ error: "Error getting reservations" });
   }
 });
 
@@ -518,6 +528,6 @@ app.get("/pending_payments", async (req, res) => {
 
 // start the server
 
-app.listen(3000, () => {
+app.listen(3001, () => {
   console.log(`Server started on http://localhost:${PORT}`);
 });
