@@ -2,6 +2,7 @@
 full-stack web app for hotel management system dashboard
 
  **tech stack**
+ 
  front-end
  - [next.js](https://github.com/vercel/next.js)
  - [typescript](https://github.com/microsoft/TypeScript/)
