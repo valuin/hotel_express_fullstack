@@ -10,6 +10,6 @@ full-stack web app for hotel management system dashboard
  - [heroicons](https://github.com/tailwindlabs/heroicons)
 
 back-end
--[node.js](https://github.com/nodejs/node)
--[express](https://github.com/expressjs/express)
--[mysql2](https://github.com/sidorares/node-mysql2)
+- [node.js](https://github.com/nodejs/node)
+- [express](https://github.com/expressjs/express)
+- [mysql2](https://github.com/sidorares/node-mysql2)
