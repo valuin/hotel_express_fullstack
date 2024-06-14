@@ -33,10 +33,10 @@ export default function Form() {
           />
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="phone_number">Phone Number</label>
+          <label htmlFor="phone">Phone Number</label>
           <input
             type="text"
-            name="phone_number"
+            name="phone"
             placeholder="123-456-7890"
             className="text-base rounded-xl border text-zinc-900 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-zinc-900"
           />
