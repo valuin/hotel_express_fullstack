@@ -39,7 +39,7 @@ export default function Form({ params }: { params: { id: number } }) {
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">Phone Number</label>
+            <label htmlFor="phone">Phone Number</label>
             <input
               type="text"
               name="phone"
@@ -48,7 +48,7 @@ export default function Form({ params }: { params: { id: number } }) {
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">Address</label>
+            <label htmlFor="address">Address</label>
             <input
               type="text"
               name="address"
@@ -57,16 +57,16 @@ export default function Form({ params }: { params: { id: number } }) {
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">Position</label>
+            <label htmlFor="position">Position</label>
             <input
               type="text"
-              name="job_title"
+              name="position"
               defaultValue={employee?.position}
               className="text-base rounded-xl border text-zinc-900 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-zinc-900"
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">Image URL</label>
+            <label htmlFor="image_url">Image URL</label>
             <input
               type="text"
               name="image_url"
