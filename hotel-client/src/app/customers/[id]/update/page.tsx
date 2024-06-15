@@ -30,7 +30,7 @@ export default function Form({ params }: { params: { id: number } }) {
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="email">email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
               name="email"
@@ -48,7 +48,7 @@ export default function Form({ params }: { params: { id: number } }) {
             />
           </div>
           <div className="flex flex-col gap-1">
-            <label htmlFor="address">address</label>
+            <label htmlFor="address">Address</label>
             <input
               type="text"
               name="address"

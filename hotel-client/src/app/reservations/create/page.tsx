@@ -55,7 +55,7 @@ export default function Form() {
           <input
             type="text"
             name="status"
-            placeholder="paid || pending"
+            placeholder="pending"
             className="text-base rounded-xl border text-zinc-900 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-zinc-900"
           />
         </div>
