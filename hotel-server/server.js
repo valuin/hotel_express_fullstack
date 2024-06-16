@@ -434,11 +434,11 @@ app.put("/reservations/:id", async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      "UPDATE reservations SET customer_id = ?, room_id = ?, check_in = ?, check_out = ?, status = ? WHERE reservation_id = ?",
+      "UPDATE reservations SET customer_id = ?, room_id = ?, check_in = ?, check_out = ?, status = ? WHERE id = ?",
       [customer_id, room_id, check_in, check_out, status, id]
     );
     res.json({
-      reservation_id: parseInt(id),
+      id: parseInt(id),
       customer_id,
       room_id,
       check_in,
@@ -455,7 +455,7 @@ app.delete("/reservations/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [result] = await pool.query("DELETE FROM reservations WHERE reservation_id = ?", [
+    const [result] = await pool.query("DELETE FROM reservations WHERE id = ?", [
       id,
     ]);
     if (result.affectedRows === 0) {
