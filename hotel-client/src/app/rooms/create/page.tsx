@@ -55,10 +55,9 @@ export default function Form() {
           <select
             className="appearance-none p-2 rounded-lg border text-zinc-900"
             name="status"
-            disabled
+            defaultValue={'Available'}
           >
             <option value="Available">🟢 Available</option>
-            <option value="Occupied">🔴 Occupied</option>
           </select>
         </div>
       </div>

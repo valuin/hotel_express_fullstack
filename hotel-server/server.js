@@ -143,11 +143,11 @@ app.put("/rooms/:id", async (req, res) => {
 
   try {
     const [result] = await pool.query(
-      "UPDATE rooms SET number = ?, type = ?, capacity = ?, price = ?, status = ? WHERE room_id = ?",
+      "UPDATE rooms SET number = ?, type = ?, capacity = ?, price = ?, status = ? WHERE id = ?",
       [number, type, capacity, price, status, id]
     );
     res.json({
-      room_id: parseInt(id),
+      id: parseInt(id),
       number,
       type,
       capacity,
@@ -169,7 +169,7 @@ app.post("/rooms", async (req, res) => {
       [number, type, capacity, price, status]
     );
     res.json({
-      room_id: result.insertId,
+      id: result.insertId,
       number,
       type,
       capacity,
@@ -186,13 +186,13 @@ app.delete("/rooms/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [result] = await pool.query("DELETE FROM rooms WHERE room_id = ?", [
+    const [result] = await pool.query("DELETE FROM rooms WHERE id = ?", [
       id,
     ]);
     if (result.affectedRows === 0) {
       res.status(404).json({ error: `Room with ID ${id} not found` });
     } else {
-      res.json({ room_id: parseInt(id) });
+      res.json({ id: parseInt(id) });
     }
   } catch (error) {
     console.error("Error deleting room:", error);
