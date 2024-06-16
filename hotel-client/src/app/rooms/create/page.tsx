@@ -52,13 +52,14 @@ export default function Form() {
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="status">Status</label>
-          <input
-            type="text"
+          <select
+            className="appearance-none p-2 rounded-lg border text-zinc-900"
             name="status"
-            defaultValue="Available"
             disabled
-            className="text-base rounded-xl border text-zinc-900 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-zinc-900"
-          />
+          >
+            <option value="Available">🟢 Available</option>
+            <option value="Occupied">🔴 Occupied</option>
+          </select>
         </div>
       </div>
       <div className="flex justify-between">
