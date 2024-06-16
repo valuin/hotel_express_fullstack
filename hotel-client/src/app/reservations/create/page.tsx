@@ -52,12 +52,13 @@ export default function Form() {
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="status">Status</label>
-          <input
-            type="text"
+          <select
+            className="appearance-none p-2 rounded-lg border border-zinc-900 text-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900"
             name="status"
-            placeholder="paid || pending"
-            className="text-base rounded-xl border text-zinc-900 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-zinc-900"
-          />
+          >
+            <option value="pending">🟡 Pending</option>
+            <option value="paid">🟢 Paid</option>
+          </select>
         </div>
       </div>
       <div className="flex justify-between">
